@@ -1,69 +1,66 @@
-// new CountdownTimer({
-//   selector: '#timer-1',
-//   targetDate: new Date('Sep 1, 2021'),
-// });
-const selector = '#timer-1';
-const targetDate = new Date('Apr 12, 2021').getTime();
+class CountdownTimer {
+  constructor({ selector, targetDate }) {
+    this.selector = selector;
+    this.targetDate = new Date(targetDate);
+  }
 
-////
+  startCountdown() {
+    const timerIdRef = document.querySelector(`${this.selector}`);
+    if (timerIdRef === null) {
+      console.log(`there is no timer markup for ${this.selector}`);
+      return;
+    }
 
-const refs = {
-  //   timerById: document.querySelector(`${selector}`),
-  days: document.querySelector(`${selector} [data-value="days"]`),
-  hours: document.querySelector(`${selector} [data-value="hours"]`),
-  mins: document.querySelector(`${selector} [data-value="mins"]`),
-  secs: document.querySelector(`${selector} [data-value="secs"]`),
-};
+    const refs = {
+      days: document.querySelector(`${this.selector} [data-value="days"]`),
+      hours: document.querySelector(`${this.selector} [data-value="hours"]`),
+      mins: document.querySelector(`${this.selector} [data-value="mins"]`),
+      secs: document.querySelector(`${this.selector} [data-value="secs"]`),
+    };
 
-// updateTimerFace(days, hours, mins, secs);
+    this.intervalId = setInterval(() => {
+      const date = Date.now();
+      const time = this.targetDate - date;
+      if (time < 0) {
+        console.log(`time is over for ${this.selector}`);
+        this.stopCountdown();
+        return;
+        }
+        
+        const timeValue = {
+       days: Math.floor(time / (1000 * 60 * 60 * 24)),
+       hours: this.pad(Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))),
+       mins: this.pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60))),
+       secs: this.pad(Math.floor((time % (1000 * 60)) / 1000)),
+        }
 
-function updateTimerFace(days, hours, mins, secs) {
-  refs.days.textContent = `${days}`;
-  refs.hours.textContent = `${hours}`;
-  refs.mins.textContent = `${mins}`;
-  refs.secs.textContent = `${secs}`;
+      updateTimerFace(refs, timeValue);
+    }, 1000);
+  }
+
+  stopCountdown() {
+    clearInterval(this.intervalId);
+  }
+
+  pad(value) {
+    return String(value).padStart(2, '0');
+  }
 }
 
-function pad(value) {
-  return String(value).padStart(2, '0');
+function updateTimerFace(refs, timeValue) {
+  refs.days.textContent = `${timeValue.days}`;
+  refs.hours.textContent = `${timeValue.hours}`;
+  refs.mins.textContent = `${timeValue.mins}`;
+  refs.secs.textContent = `${timeValue.secs}`;
 }
 
-function startCountdown() {
-  setInterval(() => {
-    const date = Date.now();
-    const time = targetDate - date;
-    const days = Math.floor(time / (1000 * 60 * 60 * 24));
-    const hours = pad(
-      Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-    );
-    const mins = pad(Math.floor((time % (1000 * 60 * 60)) / (1000 * 60)));
-    const secs = pad(Math.floor((time % (1000 * 60)) / 1000));
-    updateTimerFace(days, hours, mins, secs);
-  }, 1000);
-}
+const deadLine = new CountdownTimer({
+  selector: '#timer-1',
+  targetDate: new Date('Apr 18, 2021'),
+});
 
-startCountdown();
+deadLine.startCountdown();
 
-// setInterval(() => {
-//   const currentTime = Date.now();
-//   const deltaTime = currentTime - startTime;
-//   const time = this.getTimeComponents(deltaTime);
-//   this.onTick(time);
-// }, 1000);
-
-/////////
-
-// console.log(time);
-
-// console.log(days, hours, mins, secs);
-
-// console.log(refs.timerById);
-// console.log('days', refs.days);
-// console.log('hours', refs.hours);
-// console.log('mins', refs.mins);
-// console.log('secs', refs.secs);
-
-////////
 // Создай плагин настраиваемого таймера, который ведет обратный отсчет до предварительно определенной даты.
 // Такой плагин может использоваться в блогах и интернет - магазинах, страницах регистрации событий, во время технического обслуживания и т.д.
 // Плагин показывает четыре цифры: дни, часы, минуты и секунды в формате XX:XX:XX:XX. Количество дней может состоять из более чем двух цифр.
