@@ -1,0 +1,58 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+button,
+label {
+  cursor: pointer;
+}
+
+input {
+  font: inherit;
+}
+
+.timer {
+  margin-top: 20px;
+  font-family: 'Roboto Mono', monospace;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.field {
+  padding: 0 15px 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ddd;
+  border-radius: 4px;
+}
+
+.value {
+  font-size: 80px;
+  color: #212121;
+}
+.field:not(:last-child) {
+  margin-right: 20px;
+}
+
+.label {
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: bold;
+  color: #888888;
+}
+
+/* //////// */
+
+.timer-btn {
+  margin-left: 4px;
+  margin-right: 4px;
+  border: 0;
+  background-color: #3f51b5;
+  color: #ffffff;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+}
