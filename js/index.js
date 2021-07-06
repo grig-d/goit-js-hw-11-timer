@@ -56,7 +56,7 @@ function updateTimerFace(refs, timeValue) {
 
 const deadLine = new CountdownTimer({
   selector: '#timer-1',
-  targetDate: new Date('Apr 18, 2021'),
+  targetDate: new Date('Jul 8, 2021'),
 });
 
 deadLine.startCountdown();
