@@ -44,7 +44,7 @@ input {
   color: #888888;
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 360px) {
   .value {
     font-size: 40px;
   }
