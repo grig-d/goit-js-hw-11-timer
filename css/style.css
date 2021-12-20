@@ -44,3 +44,18 @@ input {
   color: #888888;
 }
 
+@media screen and (max-width: 480px) {
+  .value {
+    font-size: 40px;
+  }
+  .field {
+    padding: 0 7px 5px;
+    border-radius: 2px;
+  }
+  .field:not(:last-child) {
+    margin-right: 10px;
+  }
+  .label {
+    font-size: 11px;
+  }
+}
